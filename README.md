@@ -3,7 +3,10 @@ A simple software I made, very convenient and useful. Basicly It's for reverse a
 I'll may be release the source code if you guys want, but nothing that interesting. I can easily upgrade it to support any encryption type.
 It's single thread, so it's a bit slow, but there not that needs to upgrade. 
 
-It can translate 14M passwords to SHA256 hashes in 33 minutes producing a file of around 1go. With an easier encryption, MD5, it took around 4 minutes to translate 14M passwords resulting a 598mo file. 
+It can translate 14M passwords to SHA256 hashes in 33 minutes producing a file of around 1go. With an easier encryption, MD5, it took around 4 minutes to translate 14M passwords resulting a 598mo file.
+
+For searching hashes, comparing 2kh*14M hashes DB, it's long. It took around 1h30 to finish all comparison.
+
 By the way you may encounter UI issues, just increase the window size a bit. 
 
 Configuration used for the tests : WIN10, I7 920 @3.5GHz, 12GB ~667MHz.
