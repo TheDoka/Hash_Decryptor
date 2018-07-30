@@ -41,10 +41,14 @@ Making a 14M SHA1 dictionnary:
 ![MAKING 14M SHA1 DICTIONNARY](https://i.imgur.com/nMJYGCf.png)
 
 Searching 2.5K hashes in a 63M (157 Billions operations) MD5 dictionnary:
-![SEARCHING 2.5K HASH ON 63M MD5 DICTIONNARY](https://i.imgur.com/gwakAF3.png)
+![SEARCHING 2.5K HASH ON 63M MD5 DICTIONNARY](https://i.imgur.com/68220AP.png)
+CPU, Memory utilization reading database.
+![AVERAGE UTILISATION](https://i.imgur.com/6xmqrmF.png)
 !Note that you don't always need to compare the whole database, if there no hashes left.!
 
-Searching 2.5K with LEA.KZ API:
-![SEARCHING FROMWEB LEA.KZ](https://i.imgur.com/Xs7KVi0.png)
+Searching 2.5K 10ms timeout with LEA.KZ API:
+![SEARCHING FROMWEB LEA.KZ](https://i.imgur.com/zKdpznj.png)
+...
+![SEARCHING FROMWEB LEA.KZ-END](https://i.imgur.com/S7aEfyk.png)
 
 
