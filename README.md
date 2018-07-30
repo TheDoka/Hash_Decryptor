@@ -44,6 +44,7 @@ Searching 2.5K hashes in a 63M (157 Billions operations) MD5 dictionnary:
 ![SEARCHING 2.5K HASH ON 63M MD5 DICTIONNARY](https://i.imgur.com/68220AP.png)
 CPU, Memory utilization reading database.
 ![AVERAGE UTILISATION](https://i.imgur.com/6xmqrmF.png)
+![END_SEARCH](https://camo.githubusercontent.com/1551328523d1511e8241f1320c6a5dfa20afb12b/68747470733a2f2f692e696d6775722e636f6d2f6777616b4146332e706e67)
 !Note that you don't always need to compare the whole database, if there no hashes left.!
 
 Searching 2.5K 10ms timeout with LEA.KZ API:
