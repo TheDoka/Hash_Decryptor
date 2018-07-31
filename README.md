@@ -52,13 +52,11 @@ Configuration used for the tests : WIN10, I7 920 @3.5GHz, 12GB ~667MHz.
 
 <details>
 	<summary>Making a 14M MD5 dictionnary:</summary>
-![MAKING 14M MD5 DICTIONNARY](https://i.imgur.com/nndEEmZ.png)
 	
-The RAM used is the equivalent of the size of the to translate dictionnary.
-
-![PERFORMANCE](https://i.imgur.com/hDbb1sF.png)
+![MAKING 14M MD5 DICTIONNARY](https://i.imgur.com/nndEEmZ.png)
 
 ![MAKING MD5 DONE] (https://i.imgur.com/KXWw2Hn.png)
+
 </details>
 
  <details>
