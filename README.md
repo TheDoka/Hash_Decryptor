@@ -9,7 +9,7 @@
 	 *     #     # #    # #    # #    #    #     # #      #    # #   #    #   #        #   #    # #   #  
 	 *     #     # #    #  ####  #    #    ######  ######  ####  #    #   #   #        #    ####  #    # 
 	 *                                                        
-	\*    #1.10                                                                                        */                                                    
+	\*    #1.101                                                                                        */                                                    
  						Assembled by @TheDoka
 
 	╔════════════════════════════════════════════════════════════════════════════════════════════════════╗
@@ -75,7 +75,7 @@ While making dictionnary:
 </details>
 
  <details>
- <summary>Searching 1 million hashes in 63 millions database and low memory 2.5K*63M:</summary>
+ <summary>Searching 1 million hashes in 63 millions database and low memory mode 2.5K*63M:</summary>
 	
 ![SEARCHING 1M*63M](https://i.imgur.com/TqrQ8HX.png)
 
@@ -83,13 +83,13 @@ While making dictionnary:
 
 Using low memory mode: Searching 2.5K hashes in a 63M (157 Billions operations) MD5 dictionnary:
 
+[OLD VERSION SCREENSHOT] Timing should be better.
+
 ![SEARCHING 2.5K HASH ON 63M MD5 DICTIONNARY](https://i.imgur.com/68220AP.png)
 
 As you can see, the CPU & Memory utilisation is pretty low using low memory mode:
 
 ![AVERAGE UTILISATION](https://i.imgur.com/6xmqrmF.png)
-
-[OLD VERSION SCREENSHOT] Timing should be better.
 
 ![END_SEARCH](https://i.imgur.com/GqcaWJd.png)
 
