@@ -55,7 +55,7 @@ Configuration used for the tests : WIN10, I7 920 @3.5GHz, 12GB ~667MHz.
 	
 ![MAKING 14M MD5 DICTIONNARY](https://i.imgur.com/nndEEmZ.png)
 
-![MAKING MD5 DONE] (https://i.imgur.com/KXWw2Hn.png)
+![MAKING MD5 DONE](https://i.imgur.com/KXWw2Hn.png)
 
 </details>
 
@@ -75,7 +75,7 @@ While making dictionnary:
 </details>
 
  <details>
- <summary>Searching 1 million hashes in 63 millions database:</summary>
+ <summary>Searching 1 million hashes in 63 millions database and low memory 2.5K*63M:</summary>
 	
 ![SEARCHING 1M*63M](https://i.imgur.com/TqrQ8HX.png)
 
