@@ -9,7 +9,7 @@
 	 *     #     # #    # #    # #    #    #     # #      #    # #   #    #   #        #   #    # #   #  
 	 *     #     # #    #  ####  #    #    ######  ######  ####  #    #   #   #        #    ####  #    # 
 	 *                                                        
-	\*    #1.101                                                                                        */                                                    
+	\*    #1.102                                                                                        */                                                    
  						Assembled by @TheDoka
 
 	╔════════════════════════════════════════════════════════════════════════════════════════════════════╗
@@ -72,28 +72,6 @@ While making dictionnary:
 
 ![MAKING SHA256 END](https://i.imgur.com/Dr9o6XG.png)
 
-</details>
-
- <details>
- <summary>Searching 1 million hashes in 63 millions database and low memory mode 2.5K*63M:</summary>
-	
-![SEARCHING 1M*63M](https://i.imgur.com/TqrQ8HX.png)
-
-![SEARCH END](https://i.imgur.com/tqHeufG.png)
-
-Using low memory mode: Searching 2.5K hashes in a 63M (157 Billions operations) MD5 dictionnary:
-
-[OLD VERSION SCREENSHOT] Timing should be better.
-
-![SEARCHING 2.5K HASH ON 63M MD5 DICTIONNARY](https://i.imgur.com/68220AP.png)
-
-As you can see, the CPU & Memory utilisation is pretty low using low memory mode:
-
-![AVERAGE UTILISATION](https://i.imgur.com/6xmqrmF.png)
-
-![END_SEARCH](https://i.imgur.com/GqcaWJd.png)
-
-!Note that you don't always need to compare the whole database, if there no hashes left.!
 </details>
 
  <details>
