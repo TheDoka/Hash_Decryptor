@@ -22,7 +22,7 @@
 	║                                                                                                    ║
 	║    Import the whole database in memory and try to reverse the hash.                                ║
 	║    *Use --low_memory to read and not import the database.*                                         ║
-	║        -f,  -find 	 DB_FILE, HASH_FILE, OUTPUT,  KEEP LINE NUMBER, USE H:P FORMAT --low_memory  ║
+	║        -f,  -find 	 DB_FILE, HASH_FILE, OUTPUT,  KEEP LINE NUMBER, USE H:P FORMAT		     ║
 	║                                                                                                    ║
 	║    Search hashes on LEA.KZ.                                                                        ║
 	║        -w,  -web        HASH_FILE, TIMEOUT(ms), OUTPUT, KEEP LINE NUMBER, USE H:P FORMAT           ║
@@ -40,10 +40,7 @@ It can translate 14M passwords to SHA256 hashes in 23 minutes producing a file o
 
 With an easier encryption, MD5, it took around 2 minutes to translate 14M passwords resulting a 600mo file.
 
-For searching hashes, searching 10k hashes in 63M hashes database. It took around 8 secondes to finish all comparisons!
-Searching 1M hashes in the 63M database took 1 minutes to complete!
-
-Otherwise using low memory mode, comparing 2.5K hashes to a 63M hashes database, so 157 billions of operations took about one hour.
+Comparing 2.5K hashes to a 63M hashes database, so 157 billions of operations took about one hour.
 Note that you don't always need to compare the whole database, if there no hashes left.
 
 By the way you may encounter UI issues due of the progressbar, just increase the window size a bit. 
