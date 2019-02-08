@@ -14,6 +14,7 @@
     <StartArguments>-f REALHUMAN-MD5.txt HASH_FILE.txt FOUNDED.TXT 0 1</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>-f REALHUMAN-MD5.txt pass.txt xx.txt 0 1</StartArguments>
+    <StartArguments>
+    </StartArguments>
   </PropertyGroup>
 </Project>

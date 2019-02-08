@@ -47,19 +47,19 @@ namespace HASH_DB
 
 			#endregion
 			
-			// -c 	|| -calcul 	HASH
+			// -c 	|| -compute HASH
 			// -mk 	|| -make 	PASS_FILE TYPE OUTPUT
 			// -f	|| -find 	DB_FILE HASH_FILE
             // -w   || -web     HASH_FILE TIMEOUT OUTPUT KP HP
 			try {
 				
-			string[] commands = new string[] {"-c", "-calcul", "-mk", "-make", "-f", "-find", "-w", "-web", "-?", "-help"}; // #1.02
+			string[] commands = new string[] {"-c", "-compute", "-mk", "-make", "-f", "-find", "-w", "-web", "-?"}; // #1.02
             string[] support_hash = new string[] { "MD5", "SHA1", "SHA256", "SHA512" };
 
 			if (args.Length >=1 && commands.Any(args.Contains)) {
 
-                #region ARGS CALCULE
-                    if (args[0].Equals("-c") || args[0].Equals("-calcul"))
+                #region ARGS compute
+                    if (args[0].Equals("-c") || args[0].Equals("-compute"))
 				{
 					string sucess = null;
 					switch (args[1])
@@ -144,33 +144,6 @@ namespace HASH_DB
 
                     }
                 #endregion
-
-                #region ARG HELP
-                    if (args[0].Equals("-help") || args[0].Equals("-?"))
-				{
-					
-					Console.WriteLine(@"
-        ╔════════════════════════════════════════════════════════════════════════════════════════════════════╗
-        ║                                                                                                    ║
-        ║    Calcul the given hash.                                                                          ║
-        ║        -c , -calcul	 ENCRYPTION                                                                  ║
-        ║                                                                                                    ║
-        ║    Convert the given pass file into DB.                                                            ║
-        ║       -mk, -make  PASS_FILE, ENCRYPTION, OUTPUT                                                    ║
-        ║                                                                                                    ║
-        ║    Import the whole database in memory and try to reverse the hash.                                ║
-        ║    *Use --low_memory to read and not import the database.*                                         ║
-        ║        -f,  -find 	 DB_FILE, HASH_FILE, OUTPUT,  KEEP LINE NUMBER, USE H:P FORMAT               ║
-        ║                                                                                                    ║
-        ║    Search hashes on LEA.KZ.                                                                        ║
-        ║        -w,  -web        HASH_FILE, TIMEOUT(ms), OUTPUT, KEEP LINE NUMBER, USE H:P FORMAT           ║
-        ║                                                                                                    ║
-        ╚════════════════════════════════════════════════════════════════════════════════════════════════════╝
-
- *Avaible encryption methods : MD5, SHA1, SHA256, SHA256, SHA512*
-					");
-				}
-                    #endregion
 
             //      END
             
@@ -345,9 +318,16 @@ namespace HASH_DB
                             case "SHA512": hash = SHA512Hash(line); break;
                         }
 
-                        calculed++;
+                        calculed++; 
                         current_block = calculed;
                         txt.WriteLine("{0}:{1}", hash, line);
+
+                        //string quote = @"'";
+                        //if (!line.Contains(quote))
+                        //{
+                        //    txt.WriteLine("('{0}', '{1}'),", hash, line); // SQL FORMAT }
+                        //}
+                        
                     }
 
 
@@ -379,97 +359,39 @@ namespace HASH_DB
                 List<string> database = new List<string>();
 
                 Console.ForegroundColor = ConsoleColor.Magenta;
-                Int64 calculed = 0;
 
                 #region IMPORTS
 
-                Console.Write("\r [*] Importing hash file: '{0}'...", hash_file);
-                var lines = File.ReadLines(hash_file);
-                Int64 startup_hash_count = lines.Count(x => !string.IsNullOrWhiteSpace(x));
-                foreach (string line in lines) { all_hash.Add(line); }        // AJOUTE TOUT LES HASHES A L'ARRAY
-                Console.Write("\r [+] Hash file: '{0}' imported.                                                                ",hash_file);
-                Console.WriteLine();
+                    Console.Write("\r [*] Importing hash file: '{0}'...", hash_file);
 
-                Console.Write("\r [*] Scanning database '{0}'...", db_file);
-                var db_lines = File.ReadLines(db_file);
-                Int64 all_db = db_lines.Count(x => !string.IsNullOrWhiteSpace(x));
-                Console.WriteLine("\r [+] Scanning done.                                                            ");
+                        var lines = File.ReadLines(hash_file);
+                        foreach (string line in lines) { all_hash.Add(line); }        // AJOUTE TOUT LES HASHES A L'ARRAY
 
-                Console.ResetColor();
-                Console.WriteLine();
+                        // Supprime les doublons
+                        all_hash = all_hash.Distinct().ToList();
+                        Int64 startup_hash_count = all_hash.Count;
+
+                    Console.Write("\r [+] Hash file: '{0}' imported.                                                                ",hash_file);
+                    Console.WriteLine();
+                    Console.Write("\r [*] Scanning database '{0}'...", db_file);
+
+                        var db_lines = File.ReadLines(db_file);
+                        Int64 all_db = db_lines.Count(x => !string.IsNullOrWhiteSpace(x));
+
+                    Console.WriteLine("\r [+] Scanning done.                                                            ");
+                    Console.ResetColor();
+                    Console.WriteLine();
+
+                #endregion
 
                 var stopw = Stopwatch.StartNew();
 
-                if (low_memory == false) {
                     
-                    Console.Write("\r [*] Importing database '{0}'...", db_file);
-                    
-                    var u = Task.Factory.StartNew(() => monitor_ui(all_db));    // START MONITORING IMPORT STATS
-
-                    
-                    foreach (string line in db_lines)
-                    {
-                        database.Add(line);
-                        Interlocked.Increment(ref current_block);
-                    }
-                    var toFileTotalMs = stopw.Elapsed;
-                    while (u.Status.ToString() != "RanToCompletion") { }                    // ATTENDS FIN IMPORTATION.
-                    u.Dispose();                                                            // FIN TOTALE PROGRESSBAR
-                    current_block = 0;                                                       // RESET BLOCK FOR NEXT SESSION
-
-                    write_color(string.Format(" [+] Database: '{0}' imported in {1}.                                                                                               ",db_file, toFileTotalMs.ToString("mm\\:ss\\.ff")),2,ConsoleColor.Magenta,+1);
-                    //DATABASE IMPORTED.
-
-                    #endregion
-
-                    stopw = Stopwatch.StartNew();
-                    write_color("\r [*] Now Searching for hashes...                                                                                                           ",0,ConsoleColor.Magenta);
-
-                    //var z = Task.Factory.StartNew(() => monitor_ui(startup_hash_count));
-                    #region METHOD3
-                    Console.WriteLine(" [*] Filtering...");
-                    database.Sort();
-                    Console.Write(" [+] {0}, next", toFileTotalMs.ToString("mm\\:ss\\.ff"));
-                    stopw.Restart();
-                    all_hash.Sort();
-                    Console.Write("\r [+] {0} Filtered.", toFileTotalMs.ToString("mm\\:ss\\.ff"));
-
-                    stopw.Restart();
-                    //i.TrySplit(':')[0]
-                    string[] filtered = database.Where(i => all_hash.BinarySearch(i.Split(':')[0]) <0).ToArray();
-                    //string[] filtered = all_hash.Intersect(database).ToArray(); // instead of .Any()  
-                    //string[] filtered = database.Intersect(all_hash).ToArray();
-
-                    Parallel.For(0, filtered.Count(), i =>
-                    {
-                        database.Remove(filtered[i]);
-                        //Console.WriteLine("\r" + filtered[i]);
-                        //if (hp_format != 1) { log_it(output, filtered[i]); } else { log_it(output, string.Format("{0}", filtered[i])); } //HP OR NOT
-                    });
-                    Parallel.ForEach(database, hash =>
-                    {
-                        log_it(output, hash);
-                    });
-
-                    toFileTotalMs = stopw.Elapsed;
-                    stopw.Stop();
-
-                    Console.WriteLine();
-                    write_color(string.Format("\r [+] Found {0} hashes in {1}.", filtered.Count(), toFileTotalMs.ToString("mm\\:ss\\.ff")),3,ConsoleColor.Magenta,+1);
-
-                    Console.ReadKey();
-                    return 0;
+                    var y = Task.Factory.StartNew(() => monitor_ui(all_db)); // MONITORING UI.
 
 
-
-                    #endregion                   
-
-
-                } else {            // LOW MEMORY DON'T IMPORT WHOLE DATABASE.
-
-                    #region LOW MEMORY
-                    
-                    var x = Task.Factory.StartNew(() => monitor_ui(all_db)); // MONITORING UI.
+                                Int64 calculed = 0;
+                                Int64 pourcentage_done;
 
                     foreach (string line in db_lines)
                     {
@@ -486,56 +408,64 @@ namespace HASH_DB
                             {
 
                                 // #1.02 DISPLAY MATCH
-                                #region display_match
-                                //string msg = string.Format(" [+] {0} == {1} at {2}/{3}", line.Split(':')[0], line.Split(':')[1], calculed, all_db);
-                                //if (msg.Length < 120) { left_block = string.Concat(Enumerable.Repeat(" ", 120 - msg.Length)); }
-                                //write_color(string.Format("\r" + msg + left_block + "\n"), 0, ConsoleColor.DarkGray);
-                                #endregion
+                                    #region display_match
+                                    
+                                        //string msg = string.Format(" [+] {0} == {1} at {2}/{3}", line.Split(':')[0], line.Split(':')[1], calculed, all_db);
+                                        //if (msg.Length < 120) { left_block = string.Concat(Enumerable.Repeat(" ", 120 - msg.Length)); }
+                                        //write_color(string.Format("\r" + msg + left_block + "\n"), 0, ConsoleColor.DarkGray);
 
-                                if (hp_format != 1)
-                                {
-                                    log_it(output, line.Split(':')[1]);
-                                }
-                                else
-                                {
-                                    log_it(output, string.Format("{0}:{1}", line.Split(':')[0], line.Split(':')[1]));
-                                }
+                                    #endregion
 
-                                all_hash.Remove(line.Split(':')[0]); //Supprime le hash de l'array. #1.01
+                                    if (hp_format != 1)
+                                    {
+                                        log_it(output, line.Split(':')[1]);
+                                    } else {
+                                        log_it(output, string.Format("{0}:{1}", line.Split(':')[0], line.Split(':')[1]));
+                                    }
 
-                            }
-                            else
-                            {
-                                //Console.WriteLine("No Match: {0}", line);
-                                if (keep_line_number == 1) { log_it(output, null); }
-                            } //NO MATCH
+                                    all_hash.Remove(line.Split(':')[0]); //Supprime le hash de l'array. #1.01
 
-                        }
-                        else { empty_list = true; break; } // NO HASH LEFT
+                            } else {
+
+                                    //NO MATCH
+                                    //Console.WriteLine("No Match: {0}", line);
+                                    if (keep_line_number == 1) { log_it(output, null); }
+
+                            } 
+
+                        } else { empty_list = true; break; } // NO HASH LEFT
 
                     }
 
-                    #region DONE. LOW MEMORY
 
                     var toFileTotalMs = stopw.Elapsed;
                     Int64 pourcentage = ((calculed * 100) / all_db);
-                    Int64 pourcentage_done;
 
                     //#1.02 FIX POURCENTAGE, SI N'A PAS BOUGER = AUCUN HASH 1/1 0%, SINON CALCULE SUR LE FAIT/TOTAL
-                    if (all_hash.Count == startup_hash_count) { pourcentage_done = 0; }
-                    else
-                    {
-                        if (all_hash.Count != 0) { pourcentage_done = 100 - (all_hash.Count * 100) / startup_hash_count; } else { pourcentage_done = 100; }
-                    }
+                    if (all_hash.Count == startup_hash_count)
+                        {
 
-                    while (x.Status.ToString() != "RanToCompletion") { } //Secure text
-                    Console.WriteLine("\n[+] All have been checked in {0}. Found {1}% of hashes. {2}% of database has been checked.", toFileTotalMs.ToString("mm\\:ss\\.ff"), pourcentage_done, pourcentage);
-                    #endregion
+                            pourcentage_done = 0;
 
-                    #endregion
+                        } else {
+
+                                    if (all_hash.Count != 0)
+                                    {
+                                        pourcentage_done = 100 - ((all_hash.Count-1) * 100) / startup_hash_count;
+                                    } else {
+                                        pourcentage_done = 100;
+
+                                    }
+
+                        }
+
+                    while (y.Status.ToString() != "RanToCompletion") { } //Secure text
+
+                    Console.WriteLine("\n\n[+] All have been checked in {0}. Found {1}% of hashes. {2}% of database has been checked.", toFileTotalMs.ToString("mm\\:ss\\.ff"), pourcentage_done, pourcentage);
+
                     return 0;
 
-            }
+            
 
 
 
@@ -574,13 +504,12 @@ namespace HASH_DB
         ╔════════════════════════════════════════════════════════════════════════════════════════════════════╗
         ║                                                                                                    ║
         ║    Calcul the given hash.                                                                          ║
-        ║        -c , -calcul	 ENCRYPTION                                                                  ║
+        ║        -c , -compute	 ENCRYPTION                                                                  ║
         ║                                                                                                    ║
         ║    Convert the given pass file into DB.                                                            ║
         ║       -mk, -make  PASS_FILE, ENCRYPTION, OUTPUT                                                    ║
         ║                                                                                                    ║
         ║    Import the whole database in memory and try to reverse the hash.                                ║
-        ║    *Use --low_memory to read and not import the database.*                                         ║
         ║        -f,  -find 	 DB_FILE, HASH_FILE, OUTPUT,  KEEP LINE NUMBER, USE H:P FORMAT               ║
         ║                                                                                                    ║
         ║    Search hashes on LEA.KZ.                                                                        ║
@@ -593,7 +522,6 @@ namespace HASH_DB
         
             Console.Beep();
 			Console.ResetColor();
-			Console.ReadKey();
 			System.Environment.Exit(1);
 		}
 		
