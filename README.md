@@ -15,13 +15,12 @@
 	╔════════════════════════════════════════════════════════════════════════════════════════════════════╗
 	║                                                                                                    ║
 	║    Calcul the given hash.                                                                          ║
-	║        -c , -calcul	 ENCRYPTION                                                                  ║
+	║        -c , -compute	 ENCRYPTION                                                                  ║
 	║                                                                                                    ║
 	║    Convert the given pass file into DB.                                                            ║
 	║       -mk, -make  PASS_FILE, ENCRYPTION, OUTPUT                                                    ║
 	║                                                                                                    ║
 	║    Import the whole database in memory and try to reverse the hash.                                ║
-	║    *Use --low_memory to read and not import the database.*                                         ║
 	║        -f,  -find 	 DB_FILE, HASH_FILE, OUTPUT,  KEEP LINE NUMBER, USE H:P FORMAT		     ║
 	║                                                                                                    ║
 	║    Search hashes on LEA.KZ.                                                                        ║
@@ -34,7 +33,7 @@ A simple software I made, very convenient and useful. Basicly It reverse any MD5
 
 I'll may be release the source code if you guys want, but nothing that interesting. I can easily upgrade it to support any encryption type.
 
-It's CPU based, it won't use lot of CPU but it definitly will use your RAM. Cause without the low memory mode, the whole database is imported into the program, making searching job instantaneous.
+It's CPU based, it won't use lot of CPU but it definitly will use your RAM. 
 
 It can translate 14M passwords to SHA256 hashes in 23 minutes producing a file of around 1go. 
 
