@@ -29,9 +29,7 @@
 	╚════════════════════════════════════════════════════════════════════════════════════════════════════╝
 	*Avaible encryption methods : MD5, SHA1, SHA256, SHA256, SHA512*
  
-A simple software I made, very convenient and useful. Basicly It reverse any MD5, SHA1, SHA256, SHA512 hash to text, but not magical it'll use a database creatde by his own to acomplish this.
-
-I'll may be release the source code if you guys want, but nothing that interesting. I can easily upgrade it to support any encryption type.
+A simple software that I made, very convenient and useful. Basicly it reverse any MD5, SHA1, SHA256, SHA512 hash to text, it'll use a  database that the software will create on his own to acomplish this.
 
 It's CPU based, it won't use lot of CPU but it definitly will use your RAM. 
 
@@ -42,7 +40,7 @@ With an easier encryption, MD5, it took around 2 minutes to translate 14M passwo
 Comparing 2.5K hashes to a 63M hashes database, so 157 billions of operations took about one hour.
 Note that you don't always need to compare the whole database, if there no hashes left.
 
-By the way you may encounter UI issues due of the progressbar, just increase the window size a bit. 
+By the way you may encounter UI issues due to the progressbar, just increase the window size a bit. 
 
 Configuration used for the tests : WIN10, I7 920 @3.5GHz, 12GB ~667MHz.
 
